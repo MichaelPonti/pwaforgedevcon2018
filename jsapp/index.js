@@ -5,10 +5,10 @@ const urn3 = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXlmaXJzdHZpZXdlcmFwcHBlcnNpc3
 const urn4 = 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6bXlmaXJzdHZpZXdlcmFwcHBlcnNpc3RidWNrZXQvcG5nLnppcA==';
 
 document.getElementById('btnViewerToken').addEventListener('click', async function (event) {
-	var ret = await forgeAuth.authenticateViewer();
-	console.log(ret);
-	var ret2 = await forgeAuth.authenticateForge();
-	console.log(ret2);
+	// var ret = await forgeAuth.authenticateViewer();
+	// console.log(ret);
+	// var ret2 = await forgeAuth.authenticateForge();
+	// console.log(ret2);
 	var ret3 = await forgeAuth.authForgeAzure();
 	console.log(ret3);
 });
