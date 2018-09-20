@@ -9,6 +9,8 @@ document.getElementById('btnViewerToken').addEventListener('click', async functi
 	console.log(ret);
 	var ret2 = await forgeAuth.authenticateForge();
 	console.log(ret2);
+	var ret3 = await forgeAuth.authForgeAzure();
+	console.log(ret3);
 });
 
 document.getElementById('btnLoadModel1').addEventListener('click', async function (event) {

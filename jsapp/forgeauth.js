@@ -33,9 +33,18 @@ var forgeAuth = (function () {
 	}
 
 
+	const authForgeAzure = async () => {
+		const response = await fetch('https://auauth2018.azurewebsites.net/api/Function1');
+		const json = await response.json();
+		console.log(json);
+		return json;
+	}
+
+
 	return {
 		authenticateViewer: (authenticateViewer),
-		authenticateForge: (authenticateForge)
+		authenticateForge: (authenticateForge),
+		authForgeAzure: (authForgeAzure)
 	}
 })();
 
