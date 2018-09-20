@@ -19,6 +19,30 @@
 			margin-right: 12px;
 			margin-left: 20px;
 		}
+
+
+		.hiddenMessagePanelBody {
+			display: none;
+		}
+
+		.hiddenTable {
+			display: none;
+		}
+
+		.partDataNotFoundWell {
+			margin-top: 2px;
+			background-color: red;
+			color: white;
+		}
+
+		.partDataNotFoundHidden {
+			display: none;
+		}
+
+		#tableAmlBody > tr, #tableBomBody > tr {
+			cursor: pointer;
+		}
+
 	</style>
 </head>
 
@@ -40,8 +64,8 @@
 						<div class="clearfix"></div>
 						<div id="navbarmenu" class="navbar-collapse collapse">
 							<ul class="nav navbar-nav">
-								<li class="active">
-									<a href="#" onclick="collapse()">
+								<li>
+									<a href="/index.html" onclick="collapse()">
 										<span class="glyphicon glyphicon-dashboard"></span> Dashboard
 									</a>
 								</li>
@@ -65,42 +89,6 @@
 										<span class="glyphicon glyphicon-info-sign"></span> About
 									</a>
 								</li>
-								<li>
-									<button id="btnViewerToken" type="button" class="btn btn-warning appButtonStyle">AUTH</button>
-								</li>
-								<li>
-									<button id="btnLoadModel1" type="button" class="btn btn-warning appButtonStyle">Load Model 1</button>
-								</li>
-								<li>
-									<button id="btnLoadModel2" type="button" class="btn btn-warning appButtonStyle">Load Model 2</button>
-								</li>
-								<li>
-									<button id="btnLoadModel3" type="button" class="btn btn-warning appButtonStyle">Load Model 3</button>
-								</li>
-								<li>
-									<button id="btnLoadModel4" type="button" class="btn btn-warning appButtonStyle">Load Model4</button>
-								</li>
-								<li>
-									<button id="btnAllParts" type="button" class="btn btn-info appButtonStyle">All Parts</button>
-								</li>
-								<li>
-									<button id="btnExistPart" type="button" class="btn btn-info appButtonStyle">Exist Part</button>
-								</li>
-								<li>
-									<button id="btnMissingPart" type="button" class="btn btn-info appButtonStyle">Missing Part</button>
-								</li>
-								<li>
-									<button id="btnExistBom" type="button" class="btn btn-info appButtonStyle">Exist bom</button>
-								</li>
-								<li>
-									<button id="btnMissingBom" type="button" class="btn btn-info appButtonStyle">missing bom</button>
-								</li>
-								<li>
-									<button id="btnExistAml" type="button" class="btn btn-info appButtonStyle">exist aml</button>
-								</li>
-								<li>
-									<button id="btnMissingAml" type="button" class="btn btn-info appButtonStyle">missingaml</button>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -110,33 +98,97 @@
 				<div class="container-fluid">
 					<div class="panel panel-primary top-panel">
 						<div class="panel-heading">
-							<h3>MODELS</h3>
+							<h4 id="partTitle">TITLE</h4>
 						</div>
 						<div class="panel-body">
-							<ul id="listModels" class="list-group">
-								<li class="list-group-item" data-urn="x">
-									<span class="badge">Offline</span>
-									<h5>Model 1</h5>
-									<p>description for model 1</p>
-								</li>
-								<li class="list-group-item" data-urn="y">
-									<h5>Model 2</h5>
-									<p>this is a description</p>
-								</li>
-							</ul>
-						</div>
-						<div class="panel-footer">
-							<label><input type="checkbox" id="cbCache" /> Cache Model On Load</label>
+							<div class="row">
+								<div class="col-sm-6 form-group">
+									<label for="txtPartId">Part ID</label>
+									<input id="txtPartId" type="text" class="form-control" />
+									<div id="txtPartError" class="partDataNotFoundHidden">
+										<div class="well well-sm partDataNotFoundWell">
+											<h5>part data not found</h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3 form-group">
+									<label for="txtRevision">Rev</label>
+									<input id="txtRevision" type="text" class="form-control" readonly />
+								</div>
+								<div class="col-sm-3 form-group">
+									<label for="txtStatus">Status</label>
+									<input id="txtStatus" type="text" class="form-control" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12 form-group">
+									<label for="txtDescription">Description</label>
+									<input id="txtDescription" type="text" class="form-control" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-4 form-group">
+									<label for="txtCost">Cost</label>
+									<input id="txtCost" type="number" class="form-control" readonly />
+								</div>
+								<div class="col-xs-4 form-group">
+									<label for="txtOnHand">Avail.</label>
+									<input id="txtOnHand" type="number" class="form-control" readonly />
+								</div>
+								<div class="col-xs-4 form-group">
+									<label for="txtLeadtime">Lead</label>
+									<input id="txtLeadtime" type="number" class="form-control" readonly />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="checkbox">
+										<label><input type="checkbox" id="cbIsApproved" />Is Approved Spare</label>
+										<button id="btnViewModel" type="button" class="btn btn-primary pull-right">VIEW MODEL</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="checkbox pull-right">
+										<label><input type="checkbox" id="cbCache" /> Cache Model On Load</label>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3>ORDERS</h3>
+							<h4>Bill of Materials</h4>
 						</div>
-						<div class="panel-body">
+						<div id="noBomMessageContainer" class="panel-body">
+							<div class="well well-sm well-warning">No BOM Information</div>
+						</div>
+						<table id="tableBom" class="table hiddenTable">
+							<tbody id="tableBomBody">
+							</tbody>
+						</table>
+					</div>
 
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h4>AML</h4>
 						</div>
+						<div id="noAmlMessageContainer" class="panel-body">
+							<div class="well well-sm well-warning">No AML Information</div>
+						</div>
+						<table id="tableAml" class="table hiddenTable">
+							<thead>
+								<tr>
+									<th>Manufacturer</th>
+									<th>Part ID</th>
+									<th>AML Status</th>
+								</tr>
+							</thead>
+							<tbody id="tableAmlBody">
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -152,8 +204,7 @@
 	<script src="jsapp/part-data-service.js"></script>
 	<script src="jsapp/generalutils.js"></script>
 	
-	<script src="jsapp/index.js"></script>
-
+	<script src="jsapp/partdetails.js"></script>
 
 	<script>
 	

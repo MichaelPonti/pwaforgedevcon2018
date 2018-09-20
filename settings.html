@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>FOTG</title>
+	<title>FOTG - Settings</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -13,13 +13,6 @@
 
 	<link rel="stylesheet" href="cssapp/stylesheet.css" />
 
-	<style>
-		.appButtonStyle {
-			width: 120px;
-			margin-right: 12px;
-			margin-left: 20px;
-		}
-	</style>
 </head>
 
 <body>
@@ -40,8 +33,8 @@
 						<div class="clearfix"></div>
 						<div id="navbarmenu" class="navbar-collapse collapse">
 							<ul class="nav navbar-nav">
-								<li class="active">
-									<a href="#" onclick="collapse()">
+								<li>
+									<a href="/Index.html" onclick="collapse()">
 										<span class="glyphicon glyphicon-dashboard"></span> Dashboard
 									</a>
 								</li>
@@ -55,8 +48,8 @@
 										<span class="glyphicon glyphicon-tag"></span> Spare Parts
 									</a>
 								</li>
-								<li>
-									<a href="/settings.html" onclick="collapse()">
+								<li class="active">
+									<a href="#" onclick="collapse()">
 										<span class="glyphicon glyphicon-cog"></span> Settings
 									</a>
 								</li>
@@ -65,42 +58,6 @@
 										<span class="glyphicon glyphicon-info-sign"></span> About
 									</a>
 								</li>
-								<li>
-									<button id="btnViewerToken" type="button" class="btn btn-warning appButtonStyle">AUTH</button>
-								</li>
-								<li>
-									<button id="btnLoadModel1" type="button" class="btn btn-warning appButtonStyle">Load Model 1</button>
-								</li>
-								<li>
-									<button id="btnLoadModel2" type="button" class="btn btn-warning appButtonStyle">Load Model 2</button>
-								</li>
-								<li>
-									<button id="btnLoadModel3" type="button" class="btn btn-warning appButtonStyle">Load Model 3</button>
-								</li>
-								<li>
-									<button id="btnLoadModel4" type="button" class="btn btn-warning appButtonStyle">Load Model4</button>
-								</li>
-								<li>
-									<button id="btnAllParts" type="button" class="btn btn-info appButtonStyle">All Parts</button>
-								</li>
-								<li>
-									<button id="btnExistPart" type="button" class="btn btn-info appButtonStyle">Exist Part</button>
-								</li>
-								<li>
-									<button id="btnMissingPart" type="button" class="btn btn-info appButtonStyle">Missing Part</button>
-								</li>
-								<li>
-									<button id="btnExistBom" type="button" class="btn btn-info appButtonStyle">Exist bom</button>
-								</li>
-								<li>
-									<button id="btnMissingBom" type="button" class="btn btn-info appButtonStyle">missing bom</button>
-								</li>
-								<li>
-									<button id="btnExistAml" type="button" class="btn btn-info appButtonStyle">exist aml</button>
-								</li>
-								<li>
-									<button id="btnMissingAml" type="button" class="btn btn-info appButtonStyle">missingaml</button>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -108,34 +65,18 @@
 			</div>
 			<div class="col-sm-9 body-content">
 				<div class="container-fluid">
+					<h3>SETTINGS</h3>
 					<div class="panel panel-primary top-panel">
 						<div class="panel-heading">
-							<h3>MODELS</h3>
+							<div class="pull-right">
+								<button id="btnRefreshCache" class="btn btn-warning" style="vertical-align: middle;">REFRESH</button>
+							</div>
+							<h3>LOCAL MODEL CACHE</h3>
 						</div>
 						<div class="panel-body">
-							<ul id="listModels" class="list-group">
-								<li class="list-group-item" data-urn="x">
-									<span class="badge">Offline</span>
-									<h5>Model 1</h5>
-									<p>description for model 1</p>
-								</li>
-								<li class="list-group-item" data-urn="y">
-									<h5>Model 2</h5>
-									<p>this is a description</p>
-								</li>
+							<ul id="listCaches" class="list-group">
+
 							</ul>
-						</div>
-						<div class="panel-footer">
-							<label><input type="checkbox" id="cbCache" /> Cache Model On Load</label>
-						</div>
-					</div>
-
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3>ORDERS</h3>
-						</div>
-						<div class="panel-body">
-
 						</div>
 					</div>
 				</div>
@@ -148,12 +89,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script src="jsapp/forgeauth.js"></script>
 	<script src="jsapp/sw-messaging.js"></script>
-	<script src="jsapp/customer-service.js"></script>
-	<script src="jsapp/part-data-service.js"></script>
 	<script src="jsapp/generalutils.js"></script>
-	
-	<script src="jsapp/index.js"></script>
 
+	<script src="jsapp/settings.js"></script>
 
 	<script>
 	
