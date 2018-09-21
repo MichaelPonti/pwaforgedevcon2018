@@ -19,6 +19,7 @@ var shellFilesToCache = [
 
 	'/pwaforgedevcon2018/favicon.ico',
 	
+	'/pwaforgedevcon2018/generalutils.js',
 	'/pwaforgedevcon2018/about.html',
 	'/pwaforgedevcon2018/customerdetails.html',
 	'/pwaforgedevcon2018/customers.html',
@@ -45,7 +46,7 @@ var shellFilesToCache = [
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '02';
+const staticShellCacheId = staticShellPrefix + '01';
 
 
 
