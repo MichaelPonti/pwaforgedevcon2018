@@ -14,7 +14,7 @@ To setup the project, I used Visual Studio 2017 and used the "Azure Functions" p
 
 Check out the code in the AzureFuncs folder.
 
-### Dude, where are the keys?
+### Where are the keys?
 When you are setting up your publishing profile, you have the option to specify your application settings. In here you can specify ones that get deployed to Azure and local ones.
 ![application settings](images/azuredeploysettings.png)
 
