@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+AzureFuncs/ForgeApi/ForgeApiCs/local.settings.json
+
+# azure function publishing settings
+local.settings.json

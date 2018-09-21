@@ -50,7 +50,7 @@ async function launchViewer(urn, modelName) {
 	if (getCachingOption()) {
 		swCommand.cacheCommand(true, modelName);
 	}
-	const token = await forgeAuth.authenticateViewer();
+	const token = await forgeAuth.authForgeAzure();
 	window.location.href = '/viewer.html?urn=' + urn + '&token=' + token.access_token;
 }
 
