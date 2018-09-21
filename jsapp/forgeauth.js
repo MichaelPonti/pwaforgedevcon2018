@@ -34,7 +34,8 @@ var forgeAuth = (function () {
 
 
 	const authForgeAzure = async () => {
-		const response = await fetch('https://auauth2018.azurewebsites.net/api/Function1');
+		// const response = await fetch('https://auauth2018.azurewebsites.net/api/Function1');
+		const response = await fetch('https://forgeapidevcon2018.azurewebsites.net/api/forgeviewerauth');
 		const json = await response.json();
 		console.log(json);
 		return json;
