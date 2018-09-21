@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForgeApiCs", "ForgeApiCs\ForgeApiCs.csproj", "{4D209CF4-8D3D-489A-91B6-B282D60B36FB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D209CF4-8D3D-489A-91B6-B282D60B36FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D209CF4-8D3D-489A-91B6-B282D60B36FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D209CF4-8D3D-489A-91B6-B282D60B36FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D209CF4-8D3D-489A-91B6-B282D60B36FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {023A81CF-8897-4A83-B113-8ED0482AF354}
+	EndGlobalSection
+EndGlobal
