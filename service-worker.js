@@ -5,6 +5,10 @@ var cacheOn = false;
 var modelCacheName;
 
 
+var shellFilesToCacheTest = [
+	'/pwaforgedevcon2018/favicon.ico'
+];
+
 var shellFilesToCache = [
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
 	'/pwaforgedevcon2018/assets/plugins/jquery/jquery.min.js',
@@ -13,7 +17,7 @@ var shellFilesToCache = [
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js',
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2',
 
-	'/favicon.ico',
+	'/pwaforgedevcon2018/favicon.ico',
 	
 	'/pwaforgedevcon2018/about.html',
 	'/pwaforgedevcon2018/customerdetails.html',
