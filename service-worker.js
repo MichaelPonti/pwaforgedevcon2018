@@ -7,7 +7,7 @@ var modelCacheName;
 
 var shellFilesToCache = [
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-	'/assets/plugins/jquery/jquery.min.js',
+	'/pwaforgedevcon2018/assets/plugins/jquery/jquery.min.js',
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css',
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js',
@@ -15,33 +15,33 @@ var shellFilesToCache = [
 
 	'/favicon.ico',
 	
-	'/about.html',
-	'/customerdetails.html',
-	'/customers.html',
-	'/index.html',
-	'/otherpage.html',
-	'/partdetails.html',
-	'/settings.html',
-	'/spareparts.html',
-	'/viewer.html',
+	'/pwaforgedevcon2018/about.html',
+	'/pwaforgedevcon2018/customerdetails.html',
+	'/pwaforgedevcon2018/customers.html',
+	'/pwaforgedevcon2018/index.html',
+	'/pwaforgedevcon2018/otherpage.html',
+	'/pwaforgedevcon2018/partdetails.html',
+	'/pwaforgedevcon2018/settings.html',
+	'/pwaforgedevcon2018/spareparts.html',
+	'/pwaforgedevcon2018/viewer.html',
 	
-	'/cssapp/stylesheet.css',
+	'/pwaforgedevcon2018/cssapp/stylesheet.css',
 	
-	'/jsapp/customer-service.js',
-	'/jsapp/customerdetails.js',
-	'/jsapp/customers.js',
-	'/jsapp/forgeauth.js',
-	'/jsapp/index.js',
-	'/jsapp/part-data-service.js',
-	'/jsapp/partdetails.js',
-	'/jsapp/settings.js',
-	'/jsapp/spareparts.js',
-	'/jsapp/sw-messaging.js',
-	'/jsapp/viewer.js',
+	'/pwaforgedevcon2018/jsapp/customer-service.js',
+	'/pwaforgedevcon2018/jsapp/customerdetails.js',
+	'/pwaforgedevcon2018/jsapp/customers.js',
+	'/pwaforgedevcon2018/jsapp/forgeauth.js',
+	'/pwaforgedevcon2018/jsapp/index.js',
+	'/pwaforgedevcon2018/jsapp/part-data-service.js',
+	'/pwaforgedevcon2018/jsapp/partdetails.js',
+	'/pwaforgedevcon2018/jsapp/settings.js',
+	'/pwaforgedevcon2018/jsapp/spareparts.js',
+	'/pwaforgedevcon2018/jsapp/sw-messaging.js',
+	'/pwaforgedevcon2018/jsapp/viewer.js',
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '02';
+const staticShellCacheId = staticShellPrefix + '01';
 
 
 
