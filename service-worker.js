@@ -43,10 +43,11 @@ var shellFilesToCache = [
 	'/pwaforgedevcon2018/jsapp/spareparts.js',
 	'/pwaforgedevcon2018/jsapp/sw-messaging.js',
 	'/pwaforgedevcon2018/jsapp/viewer.js',
+	'/pwaforgedevcon2018/jsapp/generalutils.js'
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '01';
+const staticShellCacheId = staticShellPrefix + '02';
 
 
 

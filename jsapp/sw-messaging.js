@@ -49,12 +49,27 @@ const swCommand = (function () {
 	}
 
 
+	function removeAllModelCaches() {
+		caches.keys().then(function (cacheName) {
+			return Promise.all(
+				cacheName.map(function (cacheName) {
+					if (cacheName.startsWith('model')) {
+						console.log(`deleting cache ${cacheName}!!`);
+						return caches.delete(cacheName);
+					}
+				})
+			);
+		});
+	}
+
+
 
 	/// members returned by the IIFE object
 	/// swCommand.cacheCommand(...);
 	return {
 		cacheCommand: (cacheCommand),
-		cacheDelete: (cacheDelete)
+		cacheDelete: (cacheDelete),
+		removeAllModelCaches: (removeAllModelCaches)
 	};
 })();
 

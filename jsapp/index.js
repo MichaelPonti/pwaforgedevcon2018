@@ -36,58 +36,6 @@ document.getElementById('btnLoadModel4').addEventListener('click', async functio
 });
 
 
-document.getElementById('listModels').addEventListener('click', function (event) {
-	console.log(event);
+document.getElementById('btnDeleteCaches').addEventListener('click', async function (event) {
+	await swCommand.removeAllModelCaches();
 });
-
-
-document.getElementById('btnAllParts').addEventListener('click', async function (event) {
-	var data = await partDataService.getAllParts();
-	console.log(data);
-});
-
-
-document.getElementById('btnExistPart').addEventListener('click', async function (event) {
-	var data = await partDataService.getPartData('6551000060');
-	console.log(data);
-});
-
-document.getElementById('btnMissingPart').addEventListener('click', async function (event) {
-	var data = await partDataService.getPartData('part-6551000060');
-	console.log(data);
-});
-
-
-document.getElementById('btnExistBom').addEventListener('click', async function (event) {
-	var data = await partDataService.getBomForPart('6570050102');
-	console.log(data);
-});
-
-
-document.getElementById('btnMissingBom').addEventListener('click', async function (event) {
-	var data = await partDataService.getBomForPart('bom-6570050102');
-	console.log(data);
-});
-
-
-document.getElementById('btnExistAml').addEventListener('click', async function (event) {
-	var data = await partDataService.getAmlForPart('6553250052');
-	console.log(data);
-});
-
-document.getElementById('btnMissingAml').addEventListener('click', async function (event) {
-	var data = await partDataService.getAmlForPart('aml-6553250052');
-	console.log(data);
-});
-
-
-
-(function () {
-
-	// const customers = await customerService.getAllCustomers();
-	// console.log(customers);
-	console.log('place-holder for IIFE');
-
-
-
-})();
