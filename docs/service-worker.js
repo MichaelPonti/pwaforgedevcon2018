@@ -46,7 +46,7 @@ var shellFilesToCache = [
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '01';
+const staticShellCacheId = staticShellPrefix + '02';
 
 
 
@@ -96,7 +96,7 @@ self.addEventListener('fetch', function (event) {
 				/// token is being retrieved. If so we should still go online
 				/// for the token if we are online.
 				console.log('Cache fetch: ' + requestedUrl);
-				if (navigator.onLine && requestedUrl.endsWith('/api/forgeauth/viewer')) {
+				if (navigator.onLine && requestedUrl.endsWith('/api/forgeviewerauth')) {
 					console.log('still want the token from the web');
 					return fetch(event.request).then(function (response) {
 						cacheRequest(requestedUrl, response.clone());
