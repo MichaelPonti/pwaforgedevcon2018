@@ -1,0 +1,76 @@
+
+'use strict';
+
+
+var shellFilesToCache = [
+	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2',
+	'/assets/plugins/jquery/jquery.min.js',
+
+	'/favicon.ico',
+	
+	'/customers.html',
+	'/index.html',
+	
+	'/cssapp/stylesheet.css',
+	
+	'/jsapp/generalutils.js'
+];
+
+const staticShellPrefix = 'app-shell-';
+const staticShellCacheId = staticShellPrefix + '01';
+
+
+self.addEventListener('install', function (event) {
+	event.waitUntil(
+		caches.open(staticShellCacheId).then(function (cache) {
+			return cache.addAll(shellFilesToCache);
+		}).catch(function (error) {
+			console.error(error);
+		})
+	);
+});
+
+
+
+self.addEventListener('activate', function (event) {
+	console.log('activating service worker');
+	event.waitUntil(
+		caches.keys().then(function (cacheNames) {
+			return Promise.all(
+				cacheNames.map(function (cacheName) {
+					if (cacheName !== staticShellCacheId && cacheName.startsWith(staticShellPrefix)) {
+						return caches.delete(cacheName);
+					}
+				})
+			);
+		})
+	);
+});
+
+
+
+self.addEventListener('fetch', function (event) {
+	const requestedUrl = event.request.url;
+	console.log('fetch event: ' + requestedUrl);
+
+	event.respondWith(
+		caches.match(event.request).then(function (response) {
+			if (response) {
+				/// we found our response in the cache, so we can just return it.
+				console.log('Cache fetch: ' + requestedUrl);
+				return response;
+			}
+
+			console.log('fetching from the interwebz');
+			return fetch(event.request).then(function (response) {
+				return response;
+			}).catch(function (error) {
+				console.error('SERVICEWORKER fetch error: ' + error);
+				return new Response();
+			});
+		})
+	);
+});
+
