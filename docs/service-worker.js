@@ -46,7 +46,7 @@ var shellFilesToCache = [
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '02';
+const staticShellCacheId = staticShellPrefix + '03';
 
 
 
