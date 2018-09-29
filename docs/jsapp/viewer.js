@@ -32,8 +32,8 @@ var viewerApp;
 function showModel(urn, token) {
 	var options = {
 		env: 'AutodeskProduction',
-		accessToken: token
-
+		accessToken: token,
+		useADP: false
 	};
 	var documentId = 'urn:' + urn;
 	Autodesk.Viewing.Initializer(options, function onInitialized() {
