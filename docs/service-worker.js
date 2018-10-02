@@ -46,7 +46,7 @@ var shellFilesToCache = [
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '20';
+const staticShellCacheId = staticShellPrefix + '22';
 
 
 
@@ -119,14 +119,21 @@ self.addEventListener('fetch', function (event) {
 });
 
 
+// function cacheRequest(url, response) {
+// 	if (cacheOn && modelCacheName !== undefined && modelCacheName.length > 0) {
+// 		return caches.open(modelCacheName).then(function (cache) {
+// 			cache.put(url, response);
+// 		});
+// 	}
+// }
+
 function cacheRequest(url, response) {
-	if (cacheOn && modelCacheName !== undefined && modelCacheName.length > 0) {
-		return caches.open(modelCacheName).then(function (cache) {
+	if (cacheOn) {
+		return caches.open('model-cache').then(function (cache) {
 			cache.put(url, response);
 		});
 	}
 }
-
 
 
 self.addEventListener('message', function (event) {
