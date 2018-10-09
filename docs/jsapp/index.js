@@ -42,7 +42,7 @@ document.getElementById('btnViewer2Model4').addEventListener('click', function (
 	console.log('setup caching first');
 	setupCaching(urn4).then(function () {
 		console.log('going to viewer page');
-		window.location.href = 'viewer2.html?urn=' + urn4;
+		window.location.href = '/pwaforgedevcon2018/viewer2.html?urn=' + urn4;
 	})
 	.catch(function (error) {
 		console.log(error);
