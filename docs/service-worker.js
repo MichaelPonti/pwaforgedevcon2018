@@ -6,7 +6,9 @@ const SHELL_CACHE_NAME_PREFIX = 'app-shell-';
 const SHELL_CACHE_NAME = SHELL_CACHE_NAME_PREFIX + '019';
 
 
-const SERVER_PREFIX = '/';
+//const SERVER_PREFIX = '/';
+const SERVER_PREFIX = '/pwaforgedevcon2018/';
+
 
 var shellFilesToCache = [
 	// CDN URLS
@@ -126,10 +128,6 @@ async function fetchAsync(event) {
 	}
 
 	const freshResponse = await fetch(event.request);
-	// if (freshResponse && cacheOn && event.request.url.includes(urnToCache)) {
-	// 	console.log('part of urn to cache');
-	// 	await cacheRequest(event.request.url, freshResponse.clone());
-	// }
 	if (freshResponse && cacheOn) {
 		await cacheRequest(event.request.url, freshResponse.clone());
 	}
