@@ -108,6 +108,7 @@ async function fetchAsync(event) {
 		console.log('fetching viewer token online');
 		try {
 			const authResponse = await fetch(event.request);
+			await removeExistingResponse(event.request.url);
 			await cacheRequest(event.request.url, authResponse.clone());
 			return authResponse;
 		}
@@ -134,6 +135,14 @@ async function fetchAsync(event) {
 	}
 
 	return freshResponse;
+}
+
+
+async function removeExistingResponse(url) {
+	const cache = await caches.open('models');
+	if (cache) {
+		await cache.delete(url);
+	}
 }
 
 async function fetchAsyncTester(event) {
