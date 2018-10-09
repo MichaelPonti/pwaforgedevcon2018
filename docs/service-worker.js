@@ -163,7 +163,6 @@ async function fetchAsyncTester(event) {
 
 
 
-
 async function cacheRequest(url, response) {
 	if (cacheOn) {
 		const modelCache = await caches.open('models');
