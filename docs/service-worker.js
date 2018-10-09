@@ -108,8 +108,8 @@ async function fetchAsync(event) {
 		console.log('fetching viewer token online');
 		try {
 			const authResponse = await fetch(event.request);
-			await removeExistingResponse(event.request.url);
-			await cacheRequest(event.request.url, authResponse.clone());
+			const authCache = await caches.open('authtokens');
+			await authCache.put(event.request, authResponse.clone());
 			return authResponse;
 		}
 		catch(err) {
