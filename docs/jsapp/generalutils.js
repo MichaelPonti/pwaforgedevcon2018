@@ -46,12 +46,17 @@ function modelKey(partId) {
 }
 
 
-async function launchViewer(urn, modelName) {
+async function launchViewerOld(urn, modelName) {
 	if (getCachingOption()) {
 		swCommand.cacheCommand(true, modelName);
 	}
 	const token = await forgeAuth.authForgeAzure();
 	window.location.href = 'viewer.html?urn=' + urn + '&token=' + token.access_token;
+}
+
+
+async function launchViewer(urn) {
+	window.location.href = `viewer2.html?urn=${urn}`;
 }
 
 

@@ -1,141 +1,194 @@
 
 'use strict';
 
-var cacheOn = false;
-var modelCacheName;
+
+const SHELL_CACHE_NAME_PREFIX = 'app-shell-';
+const SHELL_CACHE_NAME = SHELL_CACHE_NAME_PREFIX + '019';
 
 
-var shellFilesToCacheTest = [
-	'/pwaforgedevcon2018/favicon.ico'
-];
+const SERVER_PREFIX = '/';
 
 var shellFilesToCache = [
+	// CDN URLS
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-	'/pwaforgedevcon2018/assets/plugins/jquery/jquery.min.js',
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-	'https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css',
-	'https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js',
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2',
 
-	'/pwaforgedevcon2018/favicon.ico',
+	// Forge URLS
+	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css',
+    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js',
+    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/lmvworker.min.js',
+	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/locales/en/allstrings.json',
+	'https://fonts.autodesk.com/ArtifaktElement/WOFF2/Artifakt%20Element%20Regular.woff2',
+
+	// app local URLS
+	`${SERVER_PREFIX}`,
+	`${SERVER_PREFIX}index.html`,
+	`${SERVER_PREFIX}assets/plugins/jquery/jquery.min.js`,
+	`${SERVER_PREFIX}favicon.ico`,
 	
-	'/pwaforgedevcon2018/about.html',
-	'/pwaforgedevcon2018/customerdetails.html',
-	'/pwaforgedevcon2018/customers.html',
-	'/pwaforgedevcon2018/index.html',
-	'/pwaforgedevcon2018/otherpage.html',
-	'/pwaforgedevcon2018/partdetails.html',
-	'/pwaforgedevcon2018/settings.html',
-	'/pwaforgedevcon2018/spareparts.html',
-	'/pwaforgedevcon2018/viewer.html',
+	`${SERVER_PREFIX}about.html`,
+	`${SERVER_PREFIX}customerdetails.html`,
+	`${SERVER_PREFIX}customers.html`,
+	`${SERVER_PREFIX}index.html`,
+	`${SERVER_PREFIX}otherpage.html`,
+	`${SERVER_PREFIX}partdetails.html`,
+	`${SERVER_PREFIX}settings.html`,
+	`${SERVER_PREFIX}spareparts.html`,
+	`${SERVER_PREFIX}viewer.html`,
+	`${SERVER_PREFIX}viewer2.html`,
 	
-	'/pwaforgedevcon2018/cssapp/stylesheet.css',
+	`${SERVER_PREFIX}cssapp/stylesheet.css`,
 	
-	'/pwaforgedevcon2018/jsapp/customer-service.js',
-	'/pwaforgedevcon2018/jsapp/customerdetails.js',
-	'/pwaforgedevcon2018/jsapp/customers.js',
-	'/pwaforgedevcon2018/jsapp/forgeauth.js',
-	'/pwaforgedevcon2018/jsapp/index.js',
-	'/pwaforgedevcon2018/jsapp/part-data-service.js',
-	'/pwaforgedevcon2018/jsapp/partdetails.js',
-	'/pwaforgedevcon2018/jsapp/settings.js',
-	'/pwaforgedevcon2018/jsapp/spareparts.js',
-	'/pwaforgedevcon2018/jsapp/sw-messaging.js',
-	'/pwaforgedevcon2018/jsapp/viewer.js',
-	'/pwaforgedevcon2018/jsapp/generalutils.js'
+	`${SERVER_PREFIX}jsapp/customer-service.js`,
+	`${SERVER_PREFIX}jsapp/customerdetails.js`,
+	`${SERVER_PREFIX}jsapp/customers.js`,
+	`${SERVER_PREFIX}jsapp/forgeauth.js`,
+	`${SERVER_PREFIX}jsapp/generalutils.js`,
+	`${SERVER_PREFIX}jsapp/index.js`,
+	`${SERVER_PREFIX}jsapp/part-data-service.js`,
+	`${SERVER_PREFIX}jsapp/partdetails.js`,
+	`${SERVER_PREFIX}jsapp/settings.js`,
+	`${SERVER_PREFIX}jsapp/spareparts.js`,
+	`${SERVER_PREFIX}jsapp/sw-messaging.js`,
+	`${SERVER_PREFIX}jsapp/viewer.js`,
+	`${SERVER_PREFIX}jsapp/viewer2.js`,
+	`${SERVER_PREFIX}jsapp/appcommander.js`
 ];
 
 const staticShellPrefix = 'app-shell-';
-const staticShellCacheId = staticShellPrefix + '20';
+const staticShellCacheId = staticShellPrefix + '22';
+
+
+self.addEventListener('error', function (error) {
+	console.error(error);
+});
 
 
 
 self.addEventListener('install', function (event) {
-	event.waitUntil(
-		caches.open(staticShellCacheId).then(function (cache) {
-			return cache.addAll(shellFilesToCache);
-		}).catch(function (error) {
-			console.error(error);
-		})
-	);
+	console.log('sw: install event');
+	event.waitUntil(installAsync(event));
 });
+
+async function installAsync(event) {
+	const cache = await caches.open(SHELL_CACHE_NAME);
+	await cache.addAll(shellFilesToCache);
+}
 
 
 
 self.addEventListener('activate', function (event) {
 	console.log('activating service worker');
-	event.waitUntil(
-		caches.keys().then(function (cacheNames) {
-			return Promise.all(
-				cacheNames.map(function (cacheName) {
-					if (cacheName !== staticShellCacheId && cacheName.startsWith(staticShellPrefix)) {
-						return caches.delete(cacheName);
-					}
-				})
-			);
-		})
-	);
+	event.waitUntil(activateAsync(event));
 });
 
+async function activateAsync(event) {
+	const keys = await caches.keys();
+	keys.map(async function (cacheName) {
+		console.log(`checking ${cacheName}`);
+		if (cacheName !== SHELL_CACHE_NAME && cacheName.startsWith(SHELL_CACHE_NAME_PREFIX)) {
+			await caches.delete(cacheName);
+		}
+	});
+}
 
 
 self.addEventListener('fetch', function (event) {
-	const requestedUrl = event.request.url;
-	console.log('fetch event: ' + requestedUrl);
-	if (cacheOn) {
-		console.log('cache: on => ' + modelCacheName);
-	} else {
-		console.log('cache: off');
-	}
-
-	event.respondWith(
-		caches.match(event.request).then(function (response) {
-			if (response) {
-				/// we found our response in the cache, so we can just return it.
-				/// however, at this point, we should also check to see if the
-				/// token is being retrieved. If so we should still go online
-				/// for the token if we are online.
-				console.log('Cache fetch: ' + requestedUrl);
-				if (navigator.onLine && requestedUrl.endsWith('/api/forgeviewerauth')) {
-					console.log('still want the token from the web');
-					return fetch(event.request).then(function (response) {
-						cacheRequest(requestedUrl, response.clone());
-						return response;
-					})
-				}
-				return response;
-			}
-
-			console.log('fetching from the interwebz');
-			return fetch(event.request).then(function (response) {
-				cacheRequest(requestedUrl, response.clone());
-				return response;
-			}).catch(function (error) {
-				console.error('SERVICEWORKER fetch error: ' + error);
-				return new Response();
-			});
-		})
-	);
+	console.log(`fetch: ${event.request.url}`);
+	event.respondWith(fetchAsync(event));
 });
 
+let cacheOn = true;
+let urnToCache = null;
 
-function cacheRequest(url, response) {
-	if (cacheOn && modelCacheName !== undefined && modelCacheName.length > 0) {
-		return caches.open(modelCacheName).then(function (cache) {
-			cache.put(url, response);
-		});
+
+async function fetchAsync(event) {
+	if (event.request.url.endsWith('api/forgeviewerauth')) {
+		console.log('fetching viewer token online');
+		try {
+			const authResponse = await fetch(event.request);
+			await cacheRequest(event.request.url, authResponse.clone());
+			return authResponse;
+		}
+		catch(err) {
+			console.error(err);
+			return caches.match(event.request);
+		}
+	}
+
+
+	const response = await caches.match(event.request);
+	if (response) {
+		console.log(`cached: ${event.request.url}`);
+		return response;
+	}
+
+	const freshResponse = await fetch(event.request);
+	// if (freshResponse && cacheOn && event.request.url.includes(urnToCache)) {
+	// 	console.log('part of urn to cache');
+	// 	await cacheRequest(event.request.url, freshResponse.clone());
+	// }
+	if (freshResponse && cacheOn) {
+		await cacheRequest(event.request.url, freshResponse.clone());
+	}
+
+	return freshResponse;
+}
+
+async function fetchAsyncTester(event) {
+	if (event.request.url.endsWith('api/forgeviewerauth')) {
+		console.log('fetching viewer token online first');
+		try {
+			const authResponse = await fetch(event.request);
+			await cacheRequest(event.request.url, authResponse.clone());
+			return authResponse;
+		}
+		catch(err) {
+			console.error(err);
+			return caches.match(event.request);
+		}
+	}
+
+	const response = caches.match(event.request.url);
+	if (response) {
+		console.log('found in cache: ' + event.request.url);
+	} else {
+		console.log('fetching from network');
+	}
+
+
+	return fetch(event.request);
+}
+
+
+
+
+async function cacheRequest(url, response) {
+	if (cacheOn) {
+		const modelCache = await caches.open('models');
+		await modelCache.put(url, response);
 	}
 }
 
 
 
-self.addEventListener('message', function (event) {
-	console.log('from messageevent in service worker: ');
-	console.log(event.data);
 
-	if (event.data.command === 'cacheCommand') {
-		cacheOn = event.data.data.cache;
-		modelCacheName = event.data.data.name;
-	}
+self.addEventListener('message', function (event) {
+	console.log('sw: message');
+	messageAsync(event);
 });
 
+
+function messageAsync(event) {
+	switch(event.data.command) {
+		case 'cacheModel':
+			cacheOn = event.data.data.cacheOn;
+			urnToCache = event.data.data.urn;
+			console.log(`caching status: ${cacheOn} ${urnToCache}`);
+			event.ports[0].postMessage({ status: 'ok' });
+			break;
+		case '':
+			break;
+	}
+}

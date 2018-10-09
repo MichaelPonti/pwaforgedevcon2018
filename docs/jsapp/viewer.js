@@ -13,7 +13,7 @@
 //-------------------------------------------------------------
 window.addEventListener('unload', function (event) {
 	console.log('viewer window unloaded');
-	swCommand.cacheCommand(false, '');
+	await SwComms.cacheOff();
 });
 
 
@@ -77,4 +77,3 @@ function onItemLoadSuccess(viewer, item) {
 function onItemLoadFail(errorCode) {
 	console.error('onItemLoadFail() - errorCode:' + errorCode);
 }
-
