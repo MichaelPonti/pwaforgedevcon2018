@@ -1,0 +1,1 @@
+http-server -a localhost -p 8225 -c 0
