@@ -23,31 +23,9 @@ var shellFilesToCache = [
 	'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2',
 
 	// Forge URLS
-	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/lmvworker.min.js',
-	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/locales/en/allstrings.json',
-	'https://fonts.autodesk.com/ArtifaktElement/WOFF2/Artifakt%20Element%20Regular.woff2',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.css',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.js',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/lmvworker.js',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/locales/en/allstrings.json',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/environments/SharpHighlights_irr.logluv.dds',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/environments/SharpHighlights_mipdrop.logluv.dds',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/environments/boardwalk_irr.logluv.dds',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/environments/boardwalk_mipdrop.logluv.dds',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCarrows.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCarrowsS0.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCarrowsS1.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCcontext.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCcontextS.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VCedge1.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VChome.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/VChomeS.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/cardinalPoint.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/centerMarker_X.png',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/textures/radial-fade-grid.png',
 
+	
+	
 	// app local URLS
 	`${SERVER_PREFIX}`,
 	`${SERVER_PREFIX}index.html`,
@@ -64,11 +42,9 @@ var shellFilesToCache = [
 	`${SERVER_PREFIX}jsapp/appcommander.js`,
 	`${SERVER_PREFIX}jsapp/appdb.js`,
 	`${SERVER_PREFIX}jsapp/batchdownload.js`,
-	`${SERVER_PREFIX}jsapp/customers.js`,
 	`${SERVER_PREFIX}jsapp/generalutils.js`,
 	`${SERVER_PREFIX}jsapp/idb.js`,
 	`${SERVER_PREFIX}jsapp/index.js`,
-	`${SERVER_PREFIX}jsapp/partorderext.js`,
 	`${SERVER_PREFIX}jsapp/viewer2.js`,
 ];
 
@@ -128,43 +104,7 @@ let urnToCache = null;
 
 
 async function fetchAsync(event) {
-	// we need to handle the auth endpoint separately.
-	// as long as we are online, keep getting your token from
-	// forge and not the cache, otherwise you will have an
-	// expired token.
-	if (event.request.url.endsWith('api/forgeauth')) {
-		console.log('fetching viewer token online');
-		try {
-			const authResponse = await fetch(event.request);
-			const authCache = await caches.open('authtokens');
-			await authCache.put(event.request, authResponse.clone());
-			return authResponse;
-		}
-		catch(err) {
-			console.log(err);
-			return caches.match(event.request);
-		}
-	}
-
-	// after that, let's try and pull from the cache.
-	const response = await caches.match(event.request, { 'ignoreSearch': true });
-	if (response) {
-		console.log(`cached: ${event.request.url}`);
-		return response;
-	}
-
-	// it's not in the cache, so lets pull from online, and if we are currently
-	// caching, we can add it to our models cache.
-	const freshResponse = await fetch(event.request);
-	if (freshResponse && cacheOn) {
-		await cacheRequest(event.request.url, freshResponse.clone());
-	}
-
-	if (freshResponse) {
-		return freshResponse;
-	} else {
-		return new Response();
-	}
+	return fetch(event.request);
 }
 
 
@@ -201,44 +141,4 @@ async function addUrnToOffline(urn) {
 
 
 
-
-
-self.addEventListener('message', function (event) {
-	console.log('sw: message');
-	messageAsync(event);
-});
-
-
-async function messageAsync(event) {
-	switch(event.data.command) {
-		case 'cacheModel':
-			// message from app telling service worker that we should
-			// either turn on or off caching. We want the urn so we
-			// can store it in the indexeddb
-			cacheOn = event.data.data.cacheOn;
-			urnToCache = event.data.data.urn;
-			console.log(`caching status: ${cacheOn} ${urnToCache}`);
-			await addUrnToOffline(urnToCache);
-			event.ports[0].postMessage({ status: 'ok' });
-			break;
-		case 'deleteModel':
-			// message from app asking the service worker to
-			// remove a model from cache.
-			await cleanModelFromCacheAsync(event.data.data.urn);
-			event.ports[0].postMessage({ status: 'ok' });
-			break;
-		case 'preloadModel':
-			// message from app asking the service worker to
-			// pre-download the urls required for caching a
-			// model.
-			const urn = event.data.data.urn;
-			await addUrnToOffline(urn);
-			var downloadUrls = await downloadModelFiles(urn);
-			console.log(downloadUrls);
-			event.ports[0].postMessage({ status: 'ok' });
-			break;
-		case '':
-			break;
-	}
-}
 
