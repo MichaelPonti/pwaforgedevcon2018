@@ -32,8 +32,6 @@ var shellFilesToCache = [
 	`${SERVER_PREFIX}assets/plugins/jquery/jquery.min.js`,
 	`${SERVER_PREFIX}favicon.ico`,
 	
-	`${SERVER_PREFIX}about.html`,
-	`${SERVER_PREFIX}customers.html`,
 	`${SERVER_PREFIX}index.html`,
 	`${SERVER_PREFIX}viewer2.html`,
 	
