@@ -1,7 +1,8 @@
 	// Forge URLS
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css',
     'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js',
-    'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/lmvworker.min.js',
+   
+	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/lmvworker.min.js',
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/res/locales/en/allstrings.json',
 	'https://fonts.autodesk.com/ArtifaktElement/WOFF2/Artifakt%20Element%20Regular.woff2',
     'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.css',
