@@ -14,7 +14,6 @@ const options = {
 
 
 const config3d = {
-	extensions: [ 'PartOrderExtension' ]
 };
 
 
