@@ -1,4 +1,4 @@
-	// Forge URLS
+
 	'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css',
     'https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js',
    
